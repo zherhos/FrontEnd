@@ -1,0 +1,38 @@
+<div class="row pt-5">
+  <div class="col-lg-6">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Description</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let task of tasksPending; let id = index">
+        <tr class="table-warning">
+          <th scope="row"> {{ id + 1 }} </th>
+          <td>{{ task.description }}</td>
+          <td>{{ task.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-lg-6">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Description</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let task of tasksCompleted; let id = index">
+        <tr class="table-success">
+          <th scope="row"> {{ id + 1 }} </th>
+          <td>{{ task.description }}</td>
+          <td>{{ task.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
