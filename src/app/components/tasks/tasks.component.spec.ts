@@ -1,19 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TasksComponent } from './tasks.component';
 import { TasksService } from 'src/app/services/tasks.service';
-import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 describe('TasksComponent', () => {
   let component: TasksComponent;
   let fixture: ComponentFixture<TasksComponent>;
-  let mockTasksService: TasksService;
-  let TASKS;
+  let mockTasksService: jasmine.SpyObj<TasksService>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TasksComponent ],
+      declarations: [
+        TasksComponent
+      ],
+      imports: [
+        DragDropModule
+      ],
       providers: [
         { provide: TasksService, useValue: mockTasksService }
       ],
@@ -23,21 +26,27 @@ describe('TasksComponent', () => {
   }));
 
   beforeEach(() => {
-    TASKS = [
-      {id: 1, description: 'Jarl', status: 'Pending' },
-      {id: 2, description: 'Jerl', status: 'Pending' },
-      {id: 3, description: 'Jirl', status: 'Pending' }
-    ];
-    mockTasksService = jasmine.createSpyObj( [ 'getAllTasks', 'postTask' ]);
+    const spy = jasmine.createSpyObj('TasksService', [ 'getAll', 'post' ]);
+
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: TasksService, useValue: mockTasksService }
+      ],
+    });
+
     fixture = TestBed.createComponent(TasksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    mockTasksService = TestBed.get(TasksService);
   });
 
-  it('should create', () => {
-    //mockTasksService.getAllTasks.and.returnValue(of(TASKS));
-    fixture.detectChanges();
+  it('should create a component', () => {
+    expect(component).toBeTruthy();
+    });
 
-    expect(fixture.componentInstance.tasksCompleted.length).toBeTruthy();
-  });
+  // it('should return something', () => {
+  //   let result = undefined;
+  //   expect(result).toBeUndefined();
+  // });
 });
