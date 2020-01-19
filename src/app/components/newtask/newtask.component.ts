@@ -6,7 +6,10 @@ import { ITask } from 'src/app/interfaces/itask';
 @Component({
   selector: 'app-newtask',
   templateUrl: './newtask.component.html',
-  styleUrls: ['./newtask.component.css']
+  styleUrls: ['./newtask.component.css'],
+  styles: [
+    `.ng-invalid.ng-touched:not(form) { border:1px solid red }`
+  ]
 })
 export class NewTaskComponent implements OnInit {
 
@@ -17,17 +20,18 @@ export class NewTaskComponent implements OnInit {
 
   ngOnInit() {
     this.newTaskForm = this.formBuilder.group({
-      description: ['', Validators.required],
+      description: ['', [Validators.required, Validators.maxLength(35)]],
       status: ['Pending', Validators.required]
     });
   }
 
   onSubmit() {
+
+    this.newTaskForm.markAsTouched();
+
     if (this.newTaskForm.valid) {
-      this.tasksService.postTask(this.newTaskForm.value).subscribe(resp => { this.newTasksAdded = resp;
+      this.tasksService.post(this.newTaskForm.value).subscribe(resp => { this.newTasksAdded = resp;
       }, error => {console.log('ERROR!'); });
-    } else {
-      console.log('Invalid!');
     }
   }
 }

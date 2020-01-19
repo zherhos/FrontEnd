@@ -10,6 +10,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { NewTaskComponent } from './components/newtask/newtask.component';
 import { TasksService } from './services/tasks.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { TasksService } from './services/tasks.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    DragDropModule,
   ],
   providers: [
     TasksService
