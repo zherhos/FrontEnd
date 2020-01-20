@@ -28,10 +28,8 @@ export class TasksComponent implements OnInit, OnChanges {
           }
         });
       },
-      error => {
-        console.log('ERROR!');
-      }
-    );
+      error => { throw new Error (`Server could not be reached: ${error}`); }
+      );
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -39,7 +37,8 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   catchNewTaskCreated(changes: SimpleChanges) {
-    if (changes.taskToAdd && !changes.taskToAdd.firstChange) {
+    if (changes.tasksToAdd && !changes.taskToAdd.firstChange) {
+
       const newTask = changes.taskToAdd.currentValue as ITask;
       this.tasksPending.push(newTask);
     }
@@ -71,11 +70,11 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   updateStatusInDB(tasks: ITask[], index: number) {
-    this.tasksService.update(tasks[index]).subscribe(resp => {
-      console.log('Success!');
-    }, error => {
-      console.log('ERROR!');
+    this.tasksService.update(tasks[index]).subscribe(
+      resp => { },
+      error => {
       this.updateStatusInMemory(tasks, index);
+      throw new Error('The server could not be reached!');
     });
   }
 
@@ -90,5 +89,9 @@ export class TasksComponent implements OnInit, OnChanges {
         break;
       }
     }
+  }
+
+  getService() {
+    return this.tasksService;
   }
 }

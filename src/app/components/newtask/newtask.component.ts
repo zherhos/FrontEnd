@@ -26,12 +26,17 @@ export class NewTaskComponent implements OnInit {
   }
 
   onSubmit() {
-
     this.newTaskForm.markAsTouched();
 
     if (this.newTaskForm.valid) {
-      this.tasksService.post(this.newTaskForm.value).subscribe(resp => { this.newTasksAdded = resp;
-      }, error => {console.log('ERROR!'); });
+      this.tasksService.post(this.newTaskForm.value).subscribe(
+        resp => { this.newTasksAdded = resp; },
+        error => { throw new Error (`Server could not be reached: ${error}`); }
+      );
     }
+  }
+
+  getService() {
+    return this.tasksService;
   }
 }
