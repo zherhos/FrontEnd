@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class TasksService implements ICRUDService<ITask>{
 
-  private url = 'http://localhost:50454/api/task';
+  url = 'http://localhost:50454/api/task';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -25,7 +25,11 @@ export class TasksService implements ICRUDService<ITask>{
     return this.httpClient.put<ITask>(this.url, task);
   }
 
-  delete(id: number) { throw new Error('Not implemented yet!'); }
+  delete(id: number) {
+    return this.httpClient.delete(`${this.url}/${id}`);
+  }
 
-  getById(id: number): ITask { throw new Error('Not implemented yet!'); }
+  getById(id: number): Observable<ITask> {
+    return this.httpClient.get<ITask>(`${this.url}/${id}`);
+  }
 }

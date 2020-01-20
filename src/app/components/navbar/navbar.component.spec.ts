@@ -18,4 +18,8 @@ describe('NavbarComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
+  it('should create navbar component', () => {
+    expect(component).toBeTruthy();
+  });
 });

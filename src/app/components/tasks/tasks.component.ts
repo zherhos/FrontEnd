@@ -38,7 +38,7 @@ export class TasksComponent implements OnInit, OnChanges {
     this.catchNewTaskCreated(changes);
   }
 
-  private catchNewTaskCreated(changes: SimpleChanges) {
+  catchNewTaskCreated(changes: SimpleChanges) {
     if (changes.taskToAdd && !changes.taskToAdd.firstChange) {
       const newTask = changes.taskToAdd.currentValue as ITask;
       this.tasksPending.push(newTask);
@@ -65,12 +65,12 @@ export class TasksComponent implements OnInit, OnChanges {
     }
   }
 
-  private updateStatus(tasks: ITask[], index: number) {
+  updateStatus(tasks: ITask[], index: number) {
     this.updateStatusInMemory(tasks, index);
     this.updateStatusInDB(tasks, index);
   }
 
-  private updateStatusInDB(tasks: ITask[], index: number) {
+  updateStatusInDB(tasks: ITask[], index: number) {
     this.tasksService.update(tasks[index]).subscribe(resp => {
       console.log('Success!');
     }, error => {
@@ -79,7 +79,7 @@ export class TasksComponent implements OnInit, OnChanges {
     });
   }
 
-  private updateStatusInMemory(tasks: ITask[], index: number) {
+  updateStatusInMemory(tasks: ITask[], index: number) {
     switch (tasks[index].status) {
       case 'Completed': {
         tasks[index].status = 'Pending';
