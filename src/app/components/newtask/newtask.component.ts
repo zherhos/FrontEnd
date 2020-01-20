@@ -27,7 +27,7 @@ export class NewTaskComponent implements OnInit {
 
   onSubmit() {
     this.newTaskForm.markAsTouched();
-
+    console.log(this.newTaskForm.valid);
     if (this.newTaskForm.valid) {
       this.tasksService.post(this.newTaskForm.value).subscribe(
         resp => { this.newTasksAdded = resp; },

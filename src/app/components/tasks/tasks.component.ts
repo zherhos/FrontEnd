@@ -37,7 +37,7 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   catchNewTaskCreated(changes: SimpleChanges) {
-    if (changes.tasksToAdd && !changes.taskToAdd.firstChange) {
+    if (changes.taskToAdd && !changes.taskToAdd.firstChange) {
 
       const newTask = changes.taskToAdd.currentValue as ITask;
       this.tasksPending.push(newTask);

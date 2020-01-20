@@ -94,8 +94,7 @@ describe('TasksComponent', () => {
   it('should increase the length of tasksPending', () => {
     const oldTasksPendingLength = component.tasksPending.length;
     component.ngOnChanges({
-      tasksToAdd: new SimpleChange('tasksToAdd', { id: 1, description: 'This is a test', status: 'Pending' } , false),
-      taskToAdd: new SimpleChange('taskToAdd', { id: 10, description: 'This is a test aux', status: 'Completed' } , false)
+      taskToAdd: new SimpleChange('taskToAdd', { id: 10, description: 'This is a test!', status: 'Completed' } , false)
     });
     fixture.detectChanges();
 
