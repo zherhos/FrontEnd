@@ -73,8 +73,8 @@ export class TasksComponent implements OnInit, OnChanges {
     this.tasksService.update(tasks[index]).subscribe(
       resp => { },
       error => {
-      this.updateStatusInMemory(tasks, index);
-      throw new Error('The server could not be reached!');
+        this.updateStatusInMemory(tasks, index);
+        throw new Error('The server could not be reached!');
     });
   }
 
